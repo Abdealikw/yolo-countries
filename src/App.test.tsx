@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { store } from './app/store'
 import App, { APP_TEST_ID } from './App'
 
-test('renders Contries App Header', () => {
+test('renders Countries App Header', () => {
     render(
         <Provider store={store}>
             <App />

@@ -8,7 +8,7 @@ export default function SearchSection() {
     const dispatch = useAppDispatch()
     const handleRightIconClick = () => dispatch(changeSearchInputValue(''))
     const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-        dispatch(changeSearchInputValue(e.target.value))
+        dispatch(changeSearchInputValue(e.target.value.toUpperCase()))
 
     return (
         <div className="md:w-6/12">
