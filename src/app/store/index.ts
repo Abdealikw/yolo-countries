@@ -1,8 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import { homePageSlice } from './home-page/homePageSlice'
 
 export const store = configureStore({
     // Add all generated reducer as a specific top-level slice
-    reducer: {},
+    reducer: {
+        [homePageSlice.name]: homePageSlice.reducer,
+    },
     middleware: getDefaultMiddleware => getDefaultMiddleware(),
 })
 
