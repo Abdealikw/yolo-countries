@@ -35,12 +35,14 @@ export default function Home() {
             <div className="flex flex-col w-full mt-5 items-center">
                 {isLoading ? (
                     <Loader />
-                ) : (
+                ) : countries.length !== 0 ? (
                     <Table
                         headings={['Country Name', 'Country Code']}
                         dataKeys={['code', 'name']}
                         data={countries}
                     />
+                ) : (
+                    <div className="text-blue-500 text-xl">No Countries found!</div>
                 )}
             </div>
         </div>
