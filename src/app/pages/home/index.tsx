@@ -2,9 +2,13 @@
 
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks'
-import { getCountries, getCountriesByCode } from '../../store/home-page/actions'
-import { Table } from '../../components'
-import { selectCountries, selectSearchInputValue } from '../../store/home-page/homePageSlice'
+import { getCountriesByCode } from '../../store/home-page/actions'
+import { Loader, Table } from '../../components'
+import {
+    selectCountries,
+    selectIsLoading,
+    selectSearchInputValue,
+} from '../../store/home-page/homePageSlice'
 import SearchSection from './search-section'
 
 export const HOME_PAGE_TEST_ID = 'HOME_PAGE_TEST_ID' // ID to use for testing purposes only
@@ -13,10 +17,7 @@ export default function Home() {
     const dispatch = useAppDispatch()
     const searchedCode = useAppSelector(selectSearchInputValue)
     const countries = useAppSelector(selectCountries)
-
-    useEffect(() => {
-        dispatch(getCountries())
-    }, [dispatch])
+    const isLoading = useAppSelector(selectIsLoading)
 
     useEffect(() => {
         dispatch(getCountriesByCode(searchedCode))
@@ -32,11 +33,15 @@ export default function Home() {
                 <SearchSection />
             </div>
             <div className="flex flex-col w-full mt-5 items-center">
-                <Table
-                    headings={['Country Name', 'Country Code']}
-                    dataKeys={['code', 'name']}
-                    data={countries}
-                />
+                {isLoading ? (
+                    <Loader />
+                ) : (
+                    <Table
+                        headings={['Country Name', 'Country Code']}
+                        dataKeys={['code', 'name']}
+                        data={countries}
+                    />
+                )}
             </div>
         </div>
     )

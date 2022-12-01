@@ -1,7 +1,7 @@
 /** Slice to manage app level search inputs */
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '..'
-import { getCountries, getCountriesByCode } from './actions'
+import { getCountriesByCode } from './actions'
 import { IHomePageState } from './types'
 
 const reducerPath = 'home'
@@ -24,13 +24,14 @@ export const homePageSlice = createSlice({
     extraReducers: builder => {
         // Add reducers for additional action types here, and handle loading state as needed
         builder
-            .addCase(getCountries.fulfilled, (state, action: any) => {
-                console.log('action.payload', action.payload)
+            .addCase(getCountriesByCode.pending, (state, action) => {
+                state.isLoading = true
+            })
+            .addCase(getCountriesByCode.fulfilled, (state, action) => {
                 state.countries = action.payload !== null ? action.payload : []
                 state.isLoading = false
             })
-            .addCase(getCountriesByCode.fulfilled, (state, action: any) => {
-                state.countries = action.payload !== null ? action.payload : []
+            .addCase(getCountriesByCode.rejected, (state, action) => {
                 state.isLoading = false
             })
     },
@@ -42,3 +43,4 @@ export const { changeSearchInputValue } = actions // Exporting Actions
 // Selectors
 export const selectSearchInputValue = (state: RootState) => state[reducerPath].searchInputValue
 export const selectCountries = (state: RootState) => state[reducerPath].countries
+export const selectIsLoading = (state: RootState) => state[reducerPath].isLoading
