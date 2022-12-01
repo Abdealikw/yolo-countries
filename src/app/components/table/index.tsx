@@ -1,8 +1,13 @@
 import { ITableProps } from './types'
 
+export const TABLE_TEST_ID = 'TABLE_TEST_ID' // ID to use for testing purposes only
+
 export default function Table({ data, dataKeys, headings }: ITableProps) {
     return (
-        <table className="table-auto text-center border-collapse border border-grey-700">
+        <table
+            data-testid={TABLE_TEST_ID}
+            className="table-auto text-center border-collapse border border-grey-700"
+        >
             <thead className="bg-blue-300">
                 <tr>
                     {headings.map(heading => (
